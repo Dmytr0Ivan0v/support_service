@@ -1,4 +1,4 @@
-# <span style='color:blue' >Support servise application</span>
+![logo](/logo.png)
 
 ## Adjust the application
 
@@ -26,15 +26,10 @@ pipenv update
 
 ## Used framefork
 
-```bash
-Django 4.1.4
-```
-
+[Django 4.1.4](https://docs.djangoproject.com/en/4.1/ "documentation")
 
 ## Code quality tools
 
-```bash
-flake8 5.0.4
-black 22.10.0
-isort 5.10.1
-```
+:mag: [flake8 6.0.0](https://flake8.pycqa.org/en/latest/#/ "documentation")\
+:black_nib: [black 22.12.0](https://black.readthedocs.io/en/stable/ "documentation")\
+:top: [isort 5.10.1](https://pycqa.github.io/isort// "documentation")
