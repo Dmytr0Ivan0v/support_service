@@ -1,8 +1,8 @@
-![logo](/logo.png)
+<img src="logo.png">
 
-## Adjust the application
+<h2><i><b>Adjust the application</i></b></h2>
 
-### Install deps
+<h3>Install deps<h3>
 
 ```bash
 # Install pipenv
@@ -15,7 +15,8 @@ pipenv shell
 pipenv sync --dev
 ```
 
-#### Additional
+<h3>Additional</h3>
+
 ```bash
 # Regenerate Pipfile.lock file
 pipenv lock
@@ -24,12 +25,14 @@ pipenv lock
 pipenv update
 ```
 
-## Used framefork
+<h2><i>Framework</i><h2>
 
-[Django 4.1.4](https://docs.djangoproject.com/en/4.1/ "documentation")
+<a href="https://docs.djangoproject.com/en/4.1/" title="documentation"> Django 4.1.4</a>
 
-## Code quality tools
+<h2><i>Code quality tools</i></h2>
 
-:mag: [flake8 6.0.0](https://flake8.pycqa.org/en/latest/#/ "documentation")\
-:black_nib: [black 22.12.0](https://black.readthedocs.io/en/stable/ "documentation")\
-:top: [isort 5.10.1](https://pycqa.github.io/isort// "documentation")
+:mag: <a href="https://flake8.pycqa.org/en/latest/#/" title="documentation"> flake8 6.0.0</a>
+
+:black_nib: <a href="https://black.readthedocs.io/en/stable/" title="documentation"> black 22.12.0</a>
+
+:top: <a href="https://pycqa.github.io/isort//" title="documentation"> isort 5.10.1 </a>
