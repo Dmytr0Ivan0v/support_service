@@ -1,2 +1,19 @@
-*.sqlite3
+#######################
+#    Python staff     #
+#######################
+
 __pycache__/
+
+# SQLite database
+*.sqlite3
+
+# Environment variables
+.env
+
+
+#######################
+#       Editors       #
+#######################
+
+# VSCode
+.vscode/
