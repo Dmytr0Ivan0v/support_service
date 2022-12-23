@@ -25,7 +25,7 @@ pipenv lock
 pipenv update
 ```
 
-<h2><i>Framework</i><h2>
+<h2><i>Framework</i></h2>
 
 <a href="https://docs.djangoproject.com/en/4.1/" title="documentation"> Django 4.1.4</a>
 
@@ -36,3 +36,17 @@ pipenv update
 :black_nib: <a href="https://black.readthedocs.io/en/stable/" title="documentation"> black 22.12.0</a>
 
 :top: <a href="https://pycqa.github.io/isort//" title="documentation"> isort 5.10.1 </a>
+
+
+<h2>Application description</h2>
+
+```bash
+
+▾ users
+
+    ├─ apps.py # Django apps configuration
+    ├─ urls.py # pre-controller
+    # ├─ views.py # Endopints / post-controller
+    ├─ models.py # Database tables mapper
+    └─ admin.py # Database tables mapper
+```

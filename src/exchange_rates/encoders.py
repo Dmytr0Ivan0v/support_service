@@ -1,6 +1,8 @@
 import json
 from decimal import Decimal
 
+from django.http import JsonResponse
+
 
 class ForDecimalJSONEncoder(json.JSONEncoder):
     """
@@ -13,3 +15,15 @@ class ForDecimalJSONEncoder(json.JSONEncoder):
             return r
         else:
             return super().default(o)
+
+
+class ForDecimalJsonResponse(JsonResponse):
+    def __init__(self, data, **kwargs):
+        JsonResponse.__init__(
+            self,
+            data,
+            encoder=ForDecimalJSONEncoder,
+            safe=True,
+            json_dumps_params=None,
+            **kwargs
+        )

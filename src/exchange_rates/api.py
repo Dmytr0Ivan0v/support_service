@@ -4,7 +4,8 @@ import requests
 from django.conf import settings
 from django.http import JsonResponse
 
-from exchange_rates import encoders, services
+from exchange_rates import services
+from exchange_rates.encoders import ForDecimalJsonResponse
 
 
 def convert(request) -> JsonResponse:
@@ -18,9 +19,7 @@ def convert(request) -> JsonResponse:
         )
         response = requests.get(url)
         alphavantage_response = services.AlphavantageResponse(**response.json())
-        return JsonResponse(
-            alphavantage_response.results.dict(), encoder=encoders.ForDecimalJSONEncoder
-        )
+        return ForDecimalJsonResponse(alphavantage_response.results.dict())
     else:
         response = {"invalid request method": "not 'POST'"}
         return JsonResponse(response)
