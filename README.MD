@@ -2,7 +2,14 @@
 
 <h2><i><b>Adjust the application</i></b></h2>
 
-<h3>Install deps<h3>
+<h3>Create `.env` file based on `.env.default`</h3>
+
+```bash
+# Unix
+cp .env.default .env
+```
+
+<h3>Install deps</h3>
 
 ```bash
 # Install pipenv

@@ -1,11 +1,11 @@
 import json
 
-import requests
-from django.conf import settings
 from django.http import JsonResponse
 
-from exchange_rates import services
+from exchange_rates.domain import (ExchangeRatesServiceRequest,
+                                   ExchangeRatesServiceResponse)
 from exchange_rates.encoders import ForDecimalJsonResponse
+from exchange_rates.services import ExchangeRatesService
 
 
 def convert(request) -> JsonResponse:
@@ -13,13 +13,13 @@ def convert(request) -> JsonResponse:
         data: dict = json.loads(request.body)
         from_currency: str = data["from"]
         to_currency: str = data["to"]
-        url = (
-            f"{settings.ALPHA_VANTAGE_BASE_URL}/query?function=CURRENCY_EXCHANGE_RATE&from_currency={from_currency}&"
-            f"to_currency={to_currency}&apikey={settings.ALPHA_VANTAGE_API_KEY}"
+        exchange_rates_service = ExchangeRatesService(
+            request=ExchangeRatesServiceRequest(
+                from_currency=from_currency, to_currency=to_currency
+            )
         )
-        response = requests.get(url)
-        alphavantage_response = services.AlphavantageResponse(**response.json())
-        return ForDecimalJsonResponse(alphavantage_response.results.dict())
+        result: ExchangeRatesServiceResponse = exchange_rates_service.convert()
+        return ForDecimalJsonResponse(result.dict())
     else:
         response = {"invalid request method": "not 'POST'"}
         return JsonResponse(response)
