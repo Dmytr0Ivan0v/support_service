@@ -19,11 +19,4 @@ class ForDecimalJSONEncoder(json.JSONEncoder):
 
 class ForDecimalJsonResponse(JsonResponse):
     def __init__(self, data, **kwargs):
-        JsonResponse.__init__(
-            self,
-            data,
-            encoder=ForDecimalJSONEncoder,
-            safe=True,
-            json_dumps_params=None,
-            **kwargs
-        )
+        JsonResponse.__init__(self, data, encoder=ForDecimalJSONEncoder, safe=True, json_dumps_params=None, **kwargs)

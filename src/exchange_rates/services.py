@@ -1,9 +1,7 @@
 import requests
 from django.conf import settings
 
-from exchange_rates.domain import (AlphavantageResponse,
-                                   ExchangeRatesServiceRequest,
-                                   ExchangeRatesServiceResponse)
+from exchange_rates.domain import AlphavantageResponse, ExchangeRatesServiceRequest, ExchangeRatesServiceResponse
 
 
 class ExchangeRatesService:
@@ -24,7 +22,5 @@ class ExchangeRatesService:
         url: str = self._build_url()
         response: requests.Response = requests.get(url)
         alphavantage_response = AlphavantageResponse(**response.json())
-        result = ExchangeRatesServiceResponse(
-            exchange_rate=alphavantage_response.results.exchange_rate
-        )
+        result = ExchangeRatesServiceResponse(exchange_rate=alphavantage_response.results.exchange_rate)
         return result
