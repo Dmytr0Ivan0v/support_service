@@ -36,6 +36,8 @@ pipenv update
 
 <a href="https://docs.djangoproject.com/en/4.1/" title="documentation"> Django 4.1.4</a>
 
+<a href=https://www.django-rest-framework.org> Django REST framework 3.14.0</a>
+
 <h2><i>Code quality tools</i></h2>
 
 :mag: <a href="https://flake8.pycqa.org/en/latest/#/" title="documentation"> flake8 6.0.0</a>

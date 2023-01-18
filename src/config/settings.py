@@ -9,16 +9,27 @@ DEBUG = getenv("DJANGO_DEBUG", default=False)
 ALLOWED_HOSTS = getenv("DJANGO_ALLOWED_HOSTS", default="").split(",")
 
 
-INSTALLED_APPS = [
+DGANGO_APPS = [
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+]
+
+THIRD_PARTY_APPS = ["rest_framework"]
+
+LOCAL_APPS = [
     "exchange_rates",
     "users",
+    "tickets",
+    "comments",
+    "core",
+    "shared",
 ]
+
+INSTALLED_APPS = DGANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
