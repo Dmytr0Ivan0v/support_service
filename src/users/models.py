@@ -14,7 +14,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     last_login = models.DateTimeField(auto_now=True)
     is_staff = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
-    role = models.CharField(max_length=7, choices=Role.values())
+    role = models.CharField(max_length=7, choices=Role.values(), default=Role.USER)
 
     objects = UserManager()
 

@@ -14,7 +14,6 @@ class TicketLiteSerializer(serializers.ModelSerializer):
         model = Ticket
         fields = "__all__"
         # exclude = ["body"]
-        depth = 1
 
 
 class TicketSerializer(serializers.ModelSerializer):
