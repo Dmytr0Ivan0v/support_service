@@ -13,7 +13,6 @@ class TicketLiteSerializer(serializers.ModelSerializer):
     class Meta:
         model = Ticket
         fields = "__all__"
-        # exclude = ["body"]
 
 
 class TicketSerializer(serializers.ModelSerializer):

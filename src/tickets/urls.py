@@ -1,6 +1,7 @@
 from django.http import JsonResponse
 from django.urls import path
 from rest_framework.generics import CreateAPIView, ListAPIView
+from rest_framework.response import Response
 
 from tickets.models import Ticket
 from tickets.serializers import TicketLiteSerializer, TicketSerializer
@@ -10,34 +11,19 @@ class TicketsGet(ListAPIView):
     queryset = Ticket.objects.all()
     serializer_class = TicketLiteSerializer
 
-    def dispatch(self, request, *args, **kwargs):
+    def list(self, request, *args, **kwargs):
+        queryset = self.filter_queryset(self.get_queryset())
 
-        self.args = args
-        self.kwargs = kwargs
-        request = self.initialize_request(request, *args, **kwargs)
-        self.request = request
-        self.headers = self.default_response_headers
+        page = self.paginate_queryset(queryset)
+        if page is not None:
+            serializer = self.get_serializer(page, many=True)
+            return self.get_paginated_response(serializer.data)
 
-        try:
-            self.initial(request, *args, **kwargs)
-
-            if request.method.lower() in self.http_method_names:
-                handler = getattr(self, request.method.lower(), self.http_method_not_allowed)
-            else:
-                handler = self.http_method_not_allowed
-
-            response = handler(request, *args, **kwargs)
-
-        except Exception as exc:
-            response = self.handle_exception(exc)
-
-        self.response = self.finalize_response(request, response, *args, **kwargs)
-
-        for el in response.data:
-            if len(el["body"]) > 100:
-                el["body"] = f'{el["body"][:100]}...'
-
-        return self.response
+        serializer = self.get_serializer(queryset, many=True)
+        for ticket in serializer.data:
+            if len(ticket["body"]) > 100:
+                ticket["body"] = f'{ticket["body"][:100]}...'
+        return Response(serializer.data)
 
 
 def get_ticket(requesr, id_: int) -> JsonResponse:
