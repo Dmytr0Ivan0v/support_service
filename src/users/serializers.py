@@ -5,7 +5,8 @@ from rest_framework import serializers
 User = get_user_model()
 
 
-class UserSerialiser(serializers.ModelSerializer):
+class UserCreateSerialiser(serializers.ModelSerializer):
+
     class Meta:
         model = User
         fields = ["email", "password"]
@@ -21,3 +22,10 @@ class UserSerialiser(serializers.ModelSerializer):
     def validate(self, attrs):
         attrs["password"] = make_password(attrs["password"])
         return attrs
+
+
+class UserGetSerialiser(serializers.ModelSerializer):
+
+    class Meta:
+        model = User
+        exclude = ["password"]
