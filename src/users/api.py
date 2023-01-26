@@ -1,11 +1,12 @@
+from functools import partial
+
+from django.contrib.auth import get_user_model
 from django.http import JsonResponse
 from rest_framework.permissions import AllowAny
-from shared.serialisers import ResponseMultiSerialiser, ResponseSerialiser
-from users.serializers import UserCreateSerialiser, UserGetSerialiser
-from functools import partial
-from django.contrib.auth import get_user_model
 from rest_framework.viewsets import ViewSet
 
+from shared.serialisers import ResponseMultiSerialiser, ResponseSerialiser
+from users.serializers import UserCreateSerialiser, UserGetSerialiser
 
 User = get_user_model()
 
@@ -26,10 +27,10 @@ class UserAPISet(ViewSet):
         return JsonResponse(response.data)
 
     def create(self, request):
-        context = {'request': self.request}
+        context = {"request": self.request}
         serializer = UserCreateSerialiser(data=request.data, context=context)
         serializer.is_valid()
-        serializer.save()        
+        serializer.save()
         response = ResponseSerialiser({"result": serializer.data})
         return JsonResponse(response.data)
 

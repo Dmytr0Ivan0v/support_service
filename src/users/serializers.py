@@ -6,7 +6,6 @@ User = get_user_model()
 
 
 class UserCreateSerialiser(serializers.ModelSerializer):
-
     class Meta:
         model = User
         fields = ["email", "password"]
@@ -25,7 +24,6 @@ class UserCreateSerialiser(serializers.ModelSerializer):
 
 
 class UserGetSerialiser(serializers.ModelSerializer):
-
     class Meta:
         model = User
         exclude = ["password"]

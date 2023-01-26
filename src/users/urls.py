@@ -1,6 +1,6 @@
-from users.api import UserAPISet
 from django.urls import path
 
+from users.api import UserAPISet
 
 urlpatterns = [
     path("", UserAPISet.as_view({"post": "create", "get": "list"})),

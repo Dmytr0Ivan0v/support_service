@@ -1,14 +1,15 @@
 from functools import partial
+
 from django.http import JsonResponse
+from rest_framework import status
+from rest_framework.viewsets import ViewSet
+
+from shared.serialisers import ResponseMultiSerialiser, ResponseSerialiser
 from tickets.models import Ticket
 from tickets.serializers import TicketLiteSerializer, TicketSerializer
-from rest_framework.viewsets import ViewSet
-from shared.serialisers import ResponseSerialiser, ResponseMultiSerialiser
-from rest_framework import status
 
 
 class TicketAPISet(ViewSet):
-    
     def list(self, request):
         queryset = Ticket.objects.all()
         serializer = TicketLiteSerializer(queryset, many=True)
@@ -25,7 +26,7 @@ class TicketAPISet(ViewSet):
         return JsonResponse(response.data)
 
     def create(self, request):
-        context = {'request': self.request}
+        context = {"request": self.request}
         serializer = TicketSerializer(data=request.data, context=context)
         serializer.is_valid()
         serializer.save()
