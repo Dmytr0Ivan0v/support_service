@@ -1,41 +1,42 @@
 from functools import partial
 
+from django.contrib.auth import get_user_model
 from django.http import JsonResponse
-from rest_framework import status
+from rest_framework.permissions import AllowAny
 from rest_framework.viewsets import ViewSet
 
 from shared.serialisers import ResponseMultiSerialiser, ResponseSerialiser
-from tickets.models import Ticket
-from tickets.serializers import TicketLiteSerializer, TicketSerializer
+from users.serializers import UserCreateSerialiser, UserGetSerialiser
+
+User = get_user_model()
 
 
-class TicketAPISet(ViewSet):
+class UserAPISet(ViewSet):
+    permission_classes = [AllowAny]
+
     def list(self, request):
-        queryset = Ticket.objects.all()
-        serializer = TicketLiteSerializer(queryset, many=True)
-        for ticket in serializer.data:
-            if len(ticket["body"]) > 100:
-                ticket["body"] = f'{ticket["body"][:100]}...'
+        queryset = User.objects.all()
+        serializer = UserGetSerialiser(queryset, many=True)
         response = ResponseMultiSerialiser({"result": serializer.data})
         return JsonResponse(response.data)
 
     def retrieve(self, request, id_: int):
-        instance = Ticket.objects.get(id=id_)
-        serializer = TicketSerializer(instance)
+        instance = User.objects.get(id=id_)
+        serializer = UserGetSerialiser(instance)
         response = ResponseSerialiser({"result": serializer.data})
         return JsonResponse(response.data)
 
     def create(self, request):
         context = {"request": self.request}
-        serializer = TicketSerializer(data=request.data, context=context)
+        serializer = UserCreateSerialiser(data=request.data, context=context)
         serializer.is_valid()
         serializer.save()
         response = ResponseSerialiser({"result": serializer.data})
-        return JsonResponse(response.data, status=status.HTTP_201_CREATED)
+        return JsonResponse(response.data)
 
     def update(self, request, id_: int):
-        instance = Ticket.objects.get(id=id_)
-        serializer = TicketSerializer(instance, data=request.data, partial=partial)
+        instance = User.objects.get(id=id_)
+        serializer = UserGetSerialiser(instance, data=request.data, partial=partial)
         serializer.is_valid()
         serializer.save()
         response = ResponseSerialiser({"result": serializer.data})

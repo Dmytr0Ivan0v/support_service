@@ -3,12 +3,6 @@ from rest_framework import serializers
 from tickets.models import Ticket
 
 
-class TicketCreateSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Ticket
-        fields = ["header", "body"]
-
-
 class TicketLiteSerializer(serializers.ModelSerializer):
     class Meta:
         model = Ticket
@@ -16,6 +10,8 @@ class TicketLiteSerializer(serializers.ModelSerializer):
 
 
 class TicketSerializer(serializers.ModelSerializer):
+    customer = serializers.HiddenField(default=serializers.CurrentUserDefault())
+
     class Meta:
         model = Ticket
-        fields = "__all__"
+        fields = ["id", "header", "body", "customer"]
