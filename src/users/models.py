@@ -10,8 +10,8 @@ class User(AbstractBaseUser, PermissionsMixin):
     first_name = models.CharField(max_length=150, null=True, blank=True)
     last_name = models.CharField(max_length=150, null=True, blank=True)
     email = models.EmailField(max_length=50, unique=True)
-    password = models.CharField(max_length=50, unique=True)
-    last_login = models.DateTimeField(auto_now=True)
+    password = models.CharField(max_length=50)
+    last_login = models.DateTimeField(auto_now=True, blank=True, null=True)
     is_staff = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
     role = models.CharField(max_length=7, choices=Role.values(), default=Role.USER)
@@ -37,7 +37,7 @@ class User(AbstractBaseUser, PermissionsMixin):
         """Return the short name for the user."""
         return self.first_name
 
-    def __str__(self):  # useless if "list_display" in admin.py is defined
+    def __str__(self) -> str:
         if self.first_name and self.last_name:
             return f"{self.first_name} {self.last_name}"
         return self.email

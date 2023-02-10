@@ -1,9 +1,9 @@
-from django.contrib.admin import ModelAdmin
+from django.contrib import admin
 
-_FIELDS = ["created_at", "updated_at"]
+_FIELDS: tuple[str, ...] = ("created_at", "updated_at")
 
 
-class TimeStampReadonlyAdmin(ModelAdmin):
+class TimeStampReadonlyAdmin(admin.ModelAdmin):
     readonly_fields = _FIELDS
     list_display = _FIELDS
     list_filter = _FIELDS

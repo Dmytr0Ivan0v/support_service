@@ -1,5 +1,3 @@
-from functools import partial
-
 from django.http import JsonResponse
 from rest_framework import status
 from rest_framework.viewsets import ViewSet
@@ -8,6 +6,7 @@ from shared.serialisers import ResponseMultiSerialiser, ResponseSerialiser
 from tickets.models import Ticket
 from tickets.permissions import IsTicketManager, IsTicketOwner, RoleIsAdmin, RoleIsManager, RoleIsUser
 from tickets.serializers import TicketLiteSerializer, TicketSerializer
+from users.constants import Role
 
 
 class TicketAPISet(ViewSet):
@@ -19,7 +18,7 @@ class TicketAPISet(ViewSet):
         if self.action == "create":
             permission_classes = [RoleIsUser]
         elif self.action == "list":
-            permission_classes = [RoleIsAdmin | RoleIsManager]
+            permission_classes = [RoleIsAdmin | RoleIsManager | RoleIsUser]
         elif self.action == "retrieve":
             permission_classes = [IsTicketOwner | IsTicketManager | RoleIsAdmin]
         elif self.action == "update":
@@ -32,7 +31,13 @@ class TicketAPISet(ViewSet):
         return [permission() for permission in permission_classes]
 
     def list(self, request):
-        queryset = Ticket.objects.all()
+        if request.user.role == Role.ADMIN:
+            queryset = Ticket.objects.all()
+        elif request.user.role == Role.MANAGER:
+            queryset = Ticket.objects.filter(manager=request.user)
+        else:
+            queryset = Ticket.objects.filter(customer=request.user)
+
         serializer = TicketLiteSerializer(queryset, many=True)
         for ticket in serializer.data:
             if len(ticket["body"]) > 100:
@@ -60,7 +65,8 @@ class TicketAPISet(ViewSet):
 
     def update(self, request, id_: int):
         instance = Ticket.objects.get(id=id_)
-        serializer = TicketSerializer(instance, data=request.data, partial=partial)
+        context = {"request": self.request}
+        serializer = TicketSerializer(instance, data=request.data, context=context)
         self.check_object_permissions(request, instance)
         serializer.is_valid()
         serializer.save()
