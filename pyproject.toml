@@ -5,7 +5,7 @@ description = ""
 authors = ["Dmytro Parfeniuk <parfeniukink@gmail.com>"]
 
 [tool.poetry.dependencies]
-python = "^3.9"
+python = "^3.10"
 
 [tool.poetry.dev-dependencies]
 flake8 = "^4.0.1"
@@ -19,7 +19,7 @@ build-backend = "poetry.core.masonry.api"
 
 
 [tool.black]
-target-version = ['py39']
+target-version = ['py310']
 line-length = 120
 exclude = '''
 (
@@ -46,12 +46,29 @@ include_trailing_comma = true
 force_grid_wrap = 0
 use_parentheses = true
 line_length = 120
-skip = '.venv,venv,env,migrations'
+skip = '.venv,venv,env,migrations,trash'
 src_paths = ["src"]
 
 
 [tool.mypy]
 python_version = '3.10'
+plugins = [
+    'mypy_django_plugin.main',
+    'mypy_drf_plugin.main'
+]
 mypy_path = 'src'
-files = ['*.py',]
+exclude = [
+    'trash',
+    'migrations',
+]
+follow_imports = 'silent'
+warn_redundant_casts = true
+warn_unused_ignores = true
+show_error_codes = true
+
+[tool.django-stubs]
+django_settings_module = "config.settings"
+
+[[tool.mypy.overrides]]
+module = "rest_framework_simplejwt.views"
 ignore_missing_imports = true
