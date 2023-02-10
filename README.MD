@@ -66,17 +66,17 @@ pipenv update
 ```mermaid
 
 erDiagram
-    
     Users {
         int id
-        string first_name
+        string frist_name
         string last_name
         string email
         string password
-        string last_login
         bool is_staff
         bool is_active
         string role
+        datetime created_at
+        datetime updated_at
     }
     Tickets {
         int id
@@ -87,9 +87,9 @@ erDiagram
         datetime created_at
         datetime updated_at
     }
-    Comment {
+    Comments {
         int id
-        prev_comment_id
+        int prev_comment_id
         int user_id
         int ticket_id
         text body
@@ -98,6 +98,7 @@ erDiagram
     }
 
     Users ||--o{ Tickets : ""
-    Tickets ||--o{ Comment : ""
-    Comment ||--o{ Comment : ""
+    Tickets ||--o{ Comments : ""
+    Comments ||--o{ Comments : ""
+
 ```
