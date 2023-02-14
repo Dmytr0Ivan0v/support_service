@@ -11,3 +11,6 @@ class Ticket(TimeStampMixin):
     )
     header = models.CharField(max_length=255)
     body = models.TextField()
+
+    def __str__(self) -> str:
+        return self.header
