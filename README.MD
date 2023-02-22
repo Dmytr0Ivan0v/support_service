@@ -58,34 +58,43 @@ docker-compose up -d
 <h4>Containers</h4>
 
 :building_construction: Build images
-docker-compose build
+
+"docker-compose build"
 
 :arrow_forward: Start containers
-docker-compose up -d
+
+"docker-compose up -d"
 
 :stop_button: Stop containers
-docker-compose down
+
+"docker-compose down"
 
 :repeat: Restart containers
-docker-compose restart
+
+"docker-compose restart"
 
 :grey_question: Check containers status
-docker-compose ps
+
+"docker-compose ps"
 
 
 <h4>Logs</h4>
 
 :shopping_cart: get all logs
-docker-compose logs
+
+"docker-compose logs"
 
 :dart: get specific logs
-docker-compose logs app
+
+"docker-compose logs app"
 
 :game_die: get limited logs
-docker-compose logs --tail 10 app
+
+"docker-compose logs --tail 10 app"
 
 :kite: get flowed logs
-docker-compose logs -f app
+
+"docker-compose logs -f app"
 
 
 <h2>Application description</h2>
