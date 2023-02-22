@@ -32,7 +32,7 @@ class CommentsCreateAPI(CreateAPIView):
         """
         ticket_id = request.parser_context["kwargs"]["ticket_id"]
         ticket = Ticket.objects.get(id=ticket_id)
-        last_comment = ticket.comments.last().id
+        last_comment = ticket.comments.last().id if ticket.comments.last() else None
         request.data["ticket"] = ticket_id
         request.data["user"] = request.user.id
         request.data["prev_comment"] = last_comment
@@ -43,6 +43,7 @@ class CommentsCreateAPI(CreateAPIView):
             self.add_fields(request)
             serializer = CommentSerializer(data=request.data, context=context)
             serializer.is_valid(raise_exception=True)
+            serializer.save()
             response = ResponseSerialiser({"result": serializer.data})
 
             return JsonResponse(response.data, status=status.HTTP_201_CREATED)
