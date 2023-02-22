@@ -57,7 +57,6 @@ docker-compose up -d
 
 <h4>Containers</h4>
 
-```bash
 :building_construction: Build images
 docker-compose build
 
@@ -72,11 +71,10 @@ docker-compose restart
 
 :grey_question: Check containers status
 docker-compose ps
-```
+
 
 <h4>Logs</h4>
 
-```bash
 :shopping_cart: get all logs
 docker-compose logs
 
@@ -88,7 +86,7 @@ docker-compose logs --tail 10 app
 
 :kite: get flowed logs
 docker-compose logs -f app
-```
+
 
 <h2>Application description</h2>
 
