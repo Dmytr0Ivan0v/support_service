@@ -47,6 +47,56 @@ pipenv update
 :top: <a href="https://pycqa.github.io/isort//" title="documentation"> isort 5.10.1 </a>
 
 
+<h2><i>Run using Docker Compose</h2></i>
+
+```bash
+docker-compose up -d
+```
+
+<h3>Usefull commands</h3>
+
+<h4>Containers</h4>
+
+:building_construction: Build images
+
+"docker-compose build"
+
+:arrow_forward: Start containers
+
+"docker-compose up -d"
+
+:stop_button: Stop containers
+
+"docker-compose down"
+
+:repeat: Restart containers
+
+"docker-compose restart"
+
+:grey_question: Check containers status
+
+"docker-compose ps"
+
+
+<h4>Logs</h4>
+
+:shopping_cart: get all logs
+
+"docker-compose logs"
+
+:dart: get specific logs
+
+"docker-compose logs app"
+
+:game_die: get limited logs
+
+"docker-compose logs --tail 10 app"
+
+:kite: get flowed logs
+
+"docker-compose logs -f app"
+
+
 <h2>Application description</h2>
 
 ```bash
