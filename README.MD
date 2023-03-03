@@ -32,6 +32,13 @@ pipenv lock
 pipenv update
 ```
 
+<h3>Staticfiles</h3>
+
+```bash
+# Create a directory with staticfiles
+python src/mansge.py collectstatic
+```
+
 <h2><i>Framework</i></h2>
 
 <a href="https://docs.djangoproject.com/en/4.1/" title="documentation"> Django 4.1.4</a>
