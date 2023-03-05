@@ -1,6 +1,16 @@
 version: "3"
 
 services:
+  nginx:
+    build: ./nginx
+    ports:
+      - 8000:80
+    volumes:
+      - static_volume:/app/microservice/static
+    depends_on:
+      - app
+    restart: "on-failure"
+
   postgres:
     image: "postgres:14"
     container_name: "support_db"
@@ -26,7 +36,8 @@ services:
       - -c
       - |
         python src/manage.py migrate &&
-        echo "from django.contrib.auth import get_user_model; User = get_user_model(); User.objects.create_superuser('admin@mail.com', 'admin')" | python src/manage.py shell &&
+        python src/manage.py collectstatic &&
+        cp -r staticfiles/. microservice/static &&
         gunicorn src.config.wsgi:application --bind 0.0.0.0:8000
     image: "support_app"
     container_name: "support_app"
@@ -35,9 +46,11 @@ services:
       postgres:
         condition: service_healthy
     volumes:
-      - ".:/app/"
-    ports:
-      - "8000:8000"
+      - .:/microservice:rw
+      - static_volume:/app/microservice/static
+    expose:
+      - "8000"
 
 volumes:
   pg_data: {}
+  static_volume:

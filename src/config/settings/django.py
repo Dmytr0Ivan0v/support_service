@@ -109,3 +109,5 @@ STATIC_URL = "static/"
 
 # Set custom user model
 AUTH_USER_MODEL = "users.User"
+
+CSRF_TRUSTED_ORIGINS = ["http://0.0.0.0:8000"]
