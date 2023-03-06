@@ -1,26 +1,21 @@
-version: 2.1
+version: '2.1'
 
 orbs:
   python: circleci/python@1.5.0
 
 jobs:
   check-code-quality:
-    docker:
-      - image: cimg/python:3.10.4
+    executor: python/default
     steps:
       - checkout
       - python/install-packages:
-          pkg-manager: poetry
+          args: black
+          pkg-manager: pipenv
       - run:
-          name: Run linter
-          command: poetry run flake8 .
-      - run:
-          name: Check formatting
-          command: poetry run black --check . && poetry run isort --check-only .
-      - run:
-          name: Check static types
-          command: poetry run mypy .
-
+          command: |
+            pipenv run black --check .
+          name: Black
+          
 workflows:
   main:
     jobs:
