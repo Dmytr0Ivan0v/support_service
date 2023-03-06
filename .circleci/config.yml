@@ -21,7 +21,22 @@ jobs:
           name: Run mypy
           command: pipenv run mypy .
 
+  deploy:
+    docker:
+      - image: arvindr226/alpine-ssh
+    steps:
+      - checkout
+      - run: ssh -oStrictHostKeyChecking=no -v $USER@$IP "~/support_service/scripts/deploy.sh"
+          
 workflows:
-  main:
+  version: 2
+  check-code-and-deploy:
     jobs:
       - check-code-quality
+      - hold-deploy:
+          type: approval
+          requires:
+            - check-code-quality
+      - deploy:
+          requires:
+            - hold-deploy
