@@ -25,7 +25,10 @@ jobs:
             pip install -r requirements.txt
       - run:
           name: Run linter
-          command: flake8 .
+          command: |
+            python3 -m venv venv
+            . venv/bin/activate          
+            flake8 .
       - run:
           name: Check formatting
           command: run black --check . && run isort --check-only .
