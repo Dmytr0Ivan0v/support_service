@@ -10,19 +10,17 @@ jobs:
     steps:
       - checkout
       - python/install-packages:
-          packages: flake8 black isort
+          pkg-manager: poetry
       - run:
-          name: Flake8 linting
-          command: |
-            flake8 --max-line-length=120 .
+          name: Run linter
+          command: poetry run flake8 .
       - run:
-          name: Black formatting check
-          command: |
-            black --check --line-length=120 .
+          name: Check formatting
+          command: poetry run black --check . && poetry run isort --check-only .
       - run:
-          name: isort formatting check
-          command: |
-            isort --check .
+          name: Check static types
+          command: poetry run mypy .
+      - run:
 
 workflows:
   main:
