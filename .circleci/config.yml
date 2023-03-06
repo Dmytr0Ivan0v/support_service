@@ -9,13 +9,12 @@ jobs:
     steps:
       - checkout
       - python/install-packages:
-          args: black
           pkg-manager: pipenv
       - run:
           command: |
             pipenv run black --check .
           name: Black
-          
+
 workflows:
   main:
     jobs:
