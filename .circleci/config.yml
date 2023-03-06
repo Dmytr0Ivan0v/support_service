@@ -29,15 +29,18 @@ jobs:
           key: deps1-{{ .Branch }}-{{ checksum "requirements.txt" }}
           paths:
             - "venv"
-      - run:
-          name: Run linter
-          command: run flake8 .
-      - run:
-          name: Check formatting
-          command: run black --check . && run isort --check-only .
-      - run:
-          name: Check static types
-          command: run mypy .
+      test:
+        override:
+          - flake8 ./ --max-line-length=120
+      test:
+        override:
+          - black ./ --line-length = 120 --check
+      test:
+        override:
+          - isort ./ --check-only
+      test:
+        override:
+          - mypy .
 
 workflows:
   main:
