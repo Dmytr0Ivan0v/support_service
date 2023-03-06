@@ -12,9 +12,14 @@ jobs:
           args: --dev
           pkg-manager: pipenv
       - run:
-          command: |
-            pipenv run black --check .
-          name: Black
+          name: Run linter
+          command: pipenv run flake8 .
+      - run:
+          name: Run formatters
+          command: pipenv run black --check . && pipenv run isort --check-only .
+      - run:
+          name: Run mypy
+          command: pipenv run mypy .
 
 workflows:
   main:
