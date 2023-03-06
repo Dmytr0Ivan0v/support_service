@@ -26,3 +26,9 @@ jobs:
       - run:
           name: Check static types
           command: pip run mypy .
+
+workflows:
+  version: 2
+  build-and-deploy:
+    jobs:
+      - check-code-quality
