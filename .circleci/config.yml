@@ -1,12 +1,12 @@
 version: 2.1
 
 orbs:
-  python: circleci/python@1.2
+  python: circleci/python@1.5.0
 
 jobs:
-  build:
+  check-code-quality:
     docker:
-      - image: circleci/python:3.8
+      - image: cimg/python:3.10.4
     steps:
       - checkout
       - python/install-packages:
@@ -25,7 +25,6 @@ jobs:
             isort --check .
 
 workflows:
-  version: 2
-  build_and_test:
+  main:
     jobs:
-      - build
+      - check-code-quality
