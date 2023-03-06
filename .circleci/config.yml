@@ -31,10 +31,17 @@ jobs:
             flake8 .
       - run:
           name: Check formatting
-          command: run black --check . && run isort --check-only .
+          command: |
+            python3 -m venv venv
+            . venv/bin/activate          
+            black --check
+            isort --check-only 
       - run:
           name: Check static types
-          command: runmypy .
+          command: |
+            python3 -m venv venv
+            . venv/bin/activate         
+            runmypy .
 
 workflows:
   main:
