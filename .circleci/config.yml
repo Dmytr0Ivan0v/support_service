@@ -25,23 +25,13 @@ jobs:
             pip install -r requirements.txt
       - run:
           name: Run linter
-          command: |
-            python3 -m venv venv
-            . venv/bin/activate
-            flake8 .
+          command: python3 -m flake8 .
       - run:
           name: Check formatting
-          command: |
-            python3 -m venv venv
-            . venv/bin/activate
-            black --check .
-            isort --check-only . 
+          command: python3 -m black --check . 
       - run:
           name: Check static types
-          command: |
-            python3 -m venv venv
-            . venv/bin/activate
-            mypy .
+          command: python3 -m mypy .
 
 workflows:
   main:
