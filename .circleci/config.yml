@@ -1,39 +1,31 @@
 version: 2.1
 
 orbs:
-  python: circleci/python@1.5.0
+  python: circleci/python@1.2
 
 jobs:
-  check-code-quality:
+  build:
     docker:
-      - image: cimg/python:3.10.4
+      - image: circleci/python:3.8
     steps:
       - checkout
+      - python/install-packages:
+          packages: flake8 black isort
       - run:
-          name: Install pipenv
-          command: python -m pip install --upgrade pip && pip install pipenv
-      - run:  
-          name: Install dependencies
-          command: pipenv sync --dev --system
-      - run:
-          name: Create "requirements.txt"
-          command: pip freeze > requirements.txt
-      - run:
+          name: Flake8 linting
           command: |
-            python3 -m venv venv
-            . venv/bin/activate
-            pip install -r requirements.txt
+            flake8 --max-line-length=120 .
       - run:
-          name: Run linter
-          command: python3 -m flake8 .
+          name: Black formatting check
+          command: |
+            black --check --line-length=120 .
       - run:
-          name: Check formatting
-          command: python3 -m black --check . 
-      - run:
-          name: Check static types
-          command: python3 -m mypy .
+          name: isort formatting check
+          command: |
+            isort --check .
 
 workflows:
-  main:
+  version: 2
+  build_and_test:
     jobs:
-      - check-code-quality
+      - build
