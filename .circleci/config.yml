@@ -26,6 +26,9 @@ jobs:
       - image: arvindr226/alpine-ssh
     steps:
       - checkout
+      - add_ssh_keys:
+          fingerprints:
+            - "de:d6:aa:92:1b:73:0c:1b:12:87:8e:80:20:85:ae:c0"
       - run: ssh -oStrictHostKeyChecking=no -v $NAME@$IP "~/support_service/scripts/deploy.sh"
           
 workflows:
