@@ -28,7 +28,7 @@ jobs:
       - checkout
       - run: pwd
       - run: cd ..
-      - run: cd ..
+      #- run: cd ..
       - run: ls -la
       #- run: cd .ssh
       - run: ssh -oStrictHostKeyChecking=no $NAME@$IP "~/support_service/scripts/deploy.sh"
