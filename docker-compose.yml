@@ -2,13 +2,13 @@ version: "3"
 
 services:
   nginx:
-    build: ./nginx
+    build: "./nginx"
     ports:
-      - 8000:80
+      - "1300:80"
     volumes:
-      - static_volume:/app/microservice/static
+      - "static_volume:/app/microservice/static"
     depends_on:
-      - app
+      - "app"
     restart: "on-failure"
 
   postgres:
@@ -44,7 +44,7 @@ services:
     env_file: ".env"
     depends_on:
       postgres:
-        condition: service_healthy
+        condition: "service_healthy"
     volumes:
       - .:/microservice:rw
       - static_volume:/app/microservice/static
@@ -53,4 +53,4 @@ services:
 
 volumes:
   pg_data: {}
-  static_volume:
+  static_volume: {}
