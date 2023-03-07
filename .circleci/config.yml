@@ -29,7 +29,7 @@ jobs:
       - add_ssh_keys:
           fingerprints:
             - "e4:d3:f5:a4:83:58:42:ad:44:e0:8f:5e:e5:f5:38:8b"
-      - run: ssh -oStrictHostKeyChecking=no $NAME@$IP "~/support_service/scripts/deploy.sh"
+      - run: ssh -o StrictHostKeyChecking=no IdentitiesOnly=yes $NAME@$IP "~/support_service/scripts/deploy.sh"
         
 workflows:
   version: 2
