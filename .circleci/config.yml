@@ -26,8 +26,11 @@ jobs:
       - image: arvindr226/alpine-ssh
     steps:
       - checkout
-      - run: ls -la
-      - run: ssh -oStrictHostKeyChecking=no ~./root/.ssh $NAME@$IP "~/support_service/scripts/deploy.sh"
+      - run: cd ..
+      - run: cd ..
+      - run: cd root
+      - run: cd .ssh
+      - run: ssh -oStrictHostKeyChecking=no $NAME@$IP "~/support_service/scripts/deploy.sh"
           
 workflows:
   version: 2
