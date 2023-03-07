@@ -27,7 +27,7 @@ jobs:
     steps:
       - checkout
       - run: ls -la
-      - run: ssh -oStrictHostKeyChecking=no -v $NAME@$IP "~/support_service/scripts/deploy.sh"
+      - run: ssh -oStrictHostKeyChecking=no ~./root/.ssh $NAME@$IP "~/support_service/scripts/deploy.sh"
           
 workflows:
   version: 2
