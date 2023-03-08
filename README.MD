@@ -1,4 +1,4 @@
-<img src="logo.png">
+<img src="pictures/logo.png">
 
 <h2><i><b>Adjust the application</i></b></h2>
 
@@ -117,6 +117,29 @@ docker-compose up -d
     └─ admin.py # Database tables mapper
 ```
 
+<h2>Deployment process</h2>
+
+⬆️ Push the project to GitHub
+
+🗃️ Create an EC2 instanse in AWS
+
+🛂 Set-up necessary inbound and outbound rules
+
+🌐 Connection to instanse in AWS
+
+📦️ Install Docker and Docker Compose
+
+🔐 Generate SSH keys for interaction with GitHub
+
+⬇️ Pull the project into AWS instance
+
+🏷️ Create .env file and define necessary variables accorrding to .env.default
+
+🏗️ Build images ("docker-compose build")
+
+🧑‍💻 Launch the project ("docker-compose up -d")
+
+✅ Done
 
 <h2>Database</h2>
 
@@ -159,3 +182,7 @@ erDiagram
     Comments ||--o{ Comments : ""
 
 ```
+
+<h2><i>Interaction between Django application server and background worker</i></h2>
+
+<img src="pictures/celery.png">
