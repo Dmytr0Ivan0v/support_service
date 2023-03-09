@@ -28,7 +28,7 @@ jobs:
       - checkout
       - run: 
           name: Deploy to AWS
-          command: ssh -o StrictHostKeyChecking=no $NAME@$IP
+          command: ssh -o StrictHostKeyChecking=no -v ubuntu@3.120.79.78
           
 workflows:
   version: 2
