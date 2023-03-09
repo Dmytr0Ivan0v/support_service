@@ -39,6 +39,12 @@ workflows:
           type: approval
           requires:
             - check-code-quality
+          filters:
+            branches:
+              only: master
       - deploy:
           requires:
             - hold-deploy
+          filters:
+            branches:
+              only: master
