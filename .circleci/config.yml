@@ -41,10 +41,10 @@ workflows:
             - check-code-quality
           filters:
             branches:
-              only: master
+              only: circleci-editor/359/development
       - deploy:
           requires:
             - hold-deploy
           filters:
             branches:
-              only: master
+              only: circleci-editor/359/development
