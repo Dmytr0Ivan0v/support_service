@@ -28,7 +28,7 @@ jobs:
       - checkout
       - run: 
           name: Deploy to AWS
-          command: ssh -o StrictHostKeyChecking=no -v $NAME@$IP "~/support_service/scripts/deploy.sh"
+          command: ssh -o StrictHostKeyChecking=no $NAME@$IP
           
 workflows:
   version: 2
