@@ -27,9 +27,11 @@ jobs:
     steps:
       - checkout
       - run: 
-          name: Deploy to AWS
+          name: connect to aws
           command: bash -c "ssh -o StrictHostKeyChecking=no $NAME@$IP"
-      - run: "ls -la"
+      - run: 
+          name: Deploy to AWS
+          command: bash -c "ls -la"
           
 workflows:
   version: 2
