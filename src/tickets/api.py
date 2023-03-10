@@ -6,6 +6,7 @@ from shared.serialisers import ResponseMultiSerialiser, ResponseSerialiser
 from tickets.models import Ticket
 from tickets.permissions import IsTicketManager, IsTicketOwner, RoleIsAdmin, RoleIsManager, RoleIsUser
 from tickets.serializers import TicketLiteSerializer, TicketSerializer
+from tickets.tasks import hello_task
 from users.constants import Role
 
 
@@ -31,6 +32,14 @@ class TicketAPISet(ViewSet):
         return [permission() for permission in permission_classes]
 
     def list(self, request):
+
+        # This task blocks I/O
+
+        for _ in range(10):
+            hello_task.delay(name="Dima")
+            # hello_task.apply_async(kwargs={"name": "Dima"})
+        # ===========================
+
         if request.user.role == Role.ADMIN:
             queryset = Ticket.objects.all()
         elif request.user.role == Role.MANAGER:

@@ -70,5 +70,5 @@ show_error_codes = true
 django_settings_module = "config.settings"
 
 [[tool.mypy.overrides]]
-module = "rest_framework_simplejwt.views"
+module = ["rest_framework_simplejwt.views", "celery", "drf-yasg", "ruamel"]
 ignore_missing_imports = true

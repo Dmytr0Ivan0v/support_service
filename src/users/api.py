@@ -7,6 +7,7 @@ from rest_framework.viewsets import ViewSet
 from shared.serialisers import ResponseMultiSerialiser, ResponseSerialiser
 from users.permissions import IsSpecificUser, RoleIsAdmin
 from users.serializers import UserCreateSerialiser, UserGetSerialiser
+from users.tasks import greeting
 
 User = get_user_model()
 
@@ -40,6 +41,12 @@ class UserAPISet(ViewSet):
         return JsonResponse(response.data)
 
     def create(self, request):
+
+        # background task ------------------
+        user_name = request.data["email"].split("@")[0]
+        greeting.delay(user_name=user_name)
+        # ----------------------------------
+
         context = {"request": self.request}
         request.data["password"] = make_password(request.data["password"])
         serializer = UserCreateSerialiser(data=request.data, context=context)
