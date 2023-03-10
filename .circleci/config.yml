@@ -28,7 +28,7 @@ jobs:
       - checkout
       - run: 
           name: connect to aws
-          command: ssh -oStrictHostKeyChecking=no -v $NAME@$IP "~/support_service/scripts/ && ls -la"
+          command: ssh -oStrictHostKeyChecking=no -v $NAME@$IP "cd support_service/scripts/ && ls -la"
       # - run: 
       #     name: Deploy to AWS
       #     command: bash -c "ls -la"
