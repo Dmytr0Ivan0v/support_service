@@ -38,13 +38,13 @@ workflows:
   check-code-and-deploy:
     jobs:
       - check-code-quality
-      - hold-deploy:
-          type: approval
-          requires:
-            - check-code-quality
-          filters:
-            branches:
-              only: circleci-editor/359/development
+      # - hold-deploy:
+      #     type: approval
+      #     requires:
+      #       - check-code-quality
+      #     filters:
+      #       branches:
+      #         only: circleci-editor/359/development
       - deploy:
           # requires:
           #   - hold-deploy
