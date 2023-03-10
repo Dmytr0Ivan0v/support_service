@@ -28,7 +28,7 @@ jobs:
       - checkout
       - run: 
           name: connect to aws
-          command: ssh -oStrictHostKeyChecking=no -v $NAME@$IP "cd support_service && ls -la && sudo docker-compose up -d"
+          command: ssh -oStrictHostKeyChecking=no -v $NAME@$IP "cd support_service && ls -la && sudo docker-compose down"
       # - run: 
       #     name: Deploy to AWS
       #     command: bash -c "ls -la"
