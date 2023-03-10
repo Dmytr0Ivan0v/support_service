@@ -26,8 +26,9 @@ jobs:
       - image: arvindr226/alpine-ssh
     steps:
       - checkout
-      - run: su
-      - run: ssh -oStrictHostKeyChecking=no -v $NAME@$IP "~/support_service/scripts/deploy.sh"
+      - run: 
+          name: deploy to aws
+          command: ssh -oStrictHostKeyChecking=no -v $NAME@$IP "~/support_service/scripts/deploy.sh"
           
 workflows:
   version: 2
@@ -38,6 +39,12 @@ workflows:
           type: approval
           requires:
             - check-code-quality
+          filters:
+            branches:
+              only: development
       - deploy:
           requires:
             - hold-deploy
+          filters:
+            branches:
+              only: development
