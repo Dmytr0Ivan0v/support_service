@@ -28,7 +28,7 @@ jobs:
       - checkout
       - run: 
           name: connect to aws
-          command: bash -c "ssh -o StrictHostKeyChecking=no $NAME@$IP"
+          command: bash -c "ssh -o StrictHostKeyChecking=no $NAME@$IP" && "ls -la"
       # - run: 
       #     name: Deploy to AWS
       #     command: bash -c "ls -la"
@@ -38,16 +38,16 @@ workflows:
   check-code-and-deploy:
     jobs:
       - check-code-quality
-      # - hold-deploy:
-      #     type: approval
-      #     requires:
-      #       - check-code-quality
-      #     filters:
-      #       branches:
-      #         only: circleci-editor/359/development
+      - hold-deploy:
+          type: approval
+          requires:
+            - check-code-quality
+          filters:
+            branches:
+              only: circleci-editor/359/development
       - deploy:
-          # requires:
-          #   - hold-deploy
+          requires:
+            - hold-deploy
           filters:
             branches:
               only: circleci-editor/359/development
