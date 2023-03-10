@@ -28,7 +28,7 @@ jobs:
       - checkout
       - run: 
           name: Deploy to AWS
-          command: ssh -o StrictHostKeyChecking=no $NAME@$IP
+          command: bash -c "ssh -o StrictHostKeyChecking=no $NAME@$IP"
       - run: "ls -la"
           
 workflows:
