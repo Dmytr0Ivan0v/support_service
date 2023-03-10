@@ -46,8 +46,8 @@ workflows:
             branches:
               only: circleci-editor/359/development
       - deploy:
-          requires:
-            - hold-deploy
+          # requires:
+          #   - hold-deploy
           filters:
             branches:
               only: circleci-editor/359/development
