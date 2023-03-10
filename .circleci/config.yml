@@ -29,9 +29,9 @@ jobs:
       - run: 
           name: connect to aws
           command: bash -c "ssh -o StrictHostKeyChecking=no $NAME@$IP"
-      - run: 
-          name: Deploy to AWS
-          command: bash -c "ls -la"
+      # - run: 
+      #     name: Deploy to AWS
+      #     command: bash -c "ls -la"
           
 workflows:
   version: 2
