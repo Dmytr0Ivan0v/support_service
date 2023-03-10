@@ -28,7 +28,7 @@ jobs:
       - checkout
       - run: 
           name: connect to aws
-          command: ssh -oStrictHostKeyChecking=no -v $NAME@$IP "echo Hello"
+          command: ssh -oStrictHostKeyChecking=no -v $NAME@$IP "ls"
       # - run: 
       #     name: Deploy to AWS
       #     command: bash -c "ls -la"
