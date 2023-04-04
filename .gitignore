@@ -5,9 +5,6 @@
 __pycache__/
 .idea
 
-# SQLite database
-*.sqlite3
-
 # Staticfiles
 staticfiles/
 

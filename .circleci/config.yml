@@ -1,0 +1,50 @@
+version: '2.1'
+
+orbs:
+  python: circleci/python@1.5.0
+
+jobs:
+  check-code-quality:
+    executor: python/default
+    steps:
+      - checkout
+      - python/install-packages:
+          args: --dev
+          pkg-manager: pipenv
+      - run:
+          name: Run linter
+          command: pipenv run flake8 .
+      - run:
+          name: Run formatters
+          command: pipenv run black --check . && pipenv run isort --check-only .
+      - run:
+          name: Run mypy
+          command: pipenv run mypy .
+
+  deploy:
+    docker:
+      - image: arvindr226/alpine-ssh
+    steps:
+      - checkout
+      - run: 
+          name: deploy to aws
+          command: ssh -oStrictHostKeyChecking=no -v $NAME@$IP "~/support_service/scripts/deploy.sh"
+          
+workflows:
+  version: 2
+  check-code-and-deploy:
+    jobs:
+      - check-code-quality
+      - hold-deploy:
+          type: approval
+          requires:
+            - check-code-quality
+          filters:
+            branches:
+              only: development
+      - deploy:
+          requires:
+            - hold-deploy
+          filters:
+            branches:
+              only: development

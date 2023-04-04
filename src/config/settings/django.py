@@ -22,6 +22,7 @@ DGANGO_APPS = [
 THIRD_PARTY_APPS = [
     "rest_framework",
     "rest_framework_simplejwt",
+    "drf_yasg",
 ]
 
 LOCAL_APPS = [
@@ -109,3 +110,5 @@ STATIC_URL = "static/"
 
 # Set custom user model
 AUTH_USER_MODEL = "users.User"
+
+CSRF_TRUSTED_ORIGINS = ["http://0.0.0.0:8000"]
